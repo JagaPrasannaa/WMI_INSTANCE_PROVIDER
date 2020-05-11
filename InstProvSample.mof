@@ -1,0 +1,33 @@
+#pragma autorecover
+#pragma namespace ("\\\\.\\root\\cimv2")
+
+instance of __Win32Provider as $P
+{
+    Name = "SampProv";
+    ClsId = "{BB466B74-24A8-4611-895F-88A46766E8A0}";
+};
+
+instance of __InstanceProviderRegistration
+{
+    provider = $P;
+    SupportsPut = TRUE;
+    SupportsGet = TRUE;
+    SupportsDelete = TRUE;
+    SupportsEnumeration = TRUE;
+};
+
+instance of __MethodProviderRegistration
+{
+    provider = $P;
+};
+
+[dynamic, provider ("SampProv")]
+class MySampProv
+{
+     [key]
+       uint32 id;
+       string data;
+
+     [implemented, static] 
+       uint32 SampleMethod ([in] string strIn, [out] string strOut);
+};
